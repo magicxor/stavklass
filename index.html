@@ -59,7 +59,7 @@
 
     <div class="header">
         <div class="search-bar">
-            <input type="text" placeholder="Поиск..." />
+            <input type="text" id="search-input" placeholder="Поиск..." />
         </div>
     </div>
 
@@ -69,25 +69,41 @@
 
     <script>
         const galleryElement = document.querySelector('.gallery');
+        const searchInput = document.getElementById('search-input');
+        let screenshotsData = [];
+
+        function filterScreenshots() {
+            const query = searchInput.value.toLowerCase();
+            galleryElement.innerHTML = ''; // Clear the gallery
+
+            // Filter and display screenshots that match the query
+            screenshotsData
+                .filter(screenshot => screenshot.text.toLowerCase().includes(query))
+                .forEach(screenshot => {
+                    const div = document.createElement('div');
+                    div.className = 'screenshot';
+                    div.innerHTML = `
+                        <img src="photos/${screenshot.file}" alt="Скриншот">
+                        <div class="screenshot-text">${screenshot.text}</div>
+                    `;
+                    galleryElement.appendChild(div);
+                });
+        }
 
         // Fetch the screenshots data from ScreenshotCatalog.json
         fetch('ScreenshotCatalog.json')
-          .then(response => response.json())
-          .then(screenshots => {
-            screenshots.forEach(screenshot => {
-              const div = document.createElement('div');
-              div.className = 'screenshot';
-              div.innerHTML = `
-                <img src="photos/${screenshot.file}" alt="Скриншот">
-                <div class="screenshot-text">${screenshot.text}</div>
-              `;
-              galleryElement.appendChild(div);
+            .then(response => response.json())
+            .then(screenshots => {
+                screenshotsData = screenshots; // Save data to variable
+                filterScreenshots(); // Display all screenshots initially
+            })
+            .catch(error => {
+                console.error('Error fetching the screenshot catalog:', error);
             });
-          })
-          .catch(error => {
-            console.error('Error fetching the screenshot catalog:', error);
-          });
-      </script>
+
+        // Add event listener for the search input
+        searchInput.addEventListener('keyup', filterScreenshots);
+    </script>
 
 </body>
 
