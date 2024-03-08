@@ -1,5 +1,5 @@
 # stavklass
-stavklass.ru reborn
+stavklass.ru reborn / скриншоты с Одноклассников
 
 ## Acknowledgements
 * vizakenjack - original stavklass.ru
