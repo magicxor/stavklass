@@ -1,5 +1,5 @@
 # stavklass
-stavklass.ru reborn / скриншоты с Одноклассников
+stavklass.ru reborn / скриншоты с Одноклассников / back-end for [stavklass-tg-bot](https://github.com/magicxor/stavklass-tg-bot)
 
 ## Acknowledgements
 * vizakenjack - original stavklass.ru
